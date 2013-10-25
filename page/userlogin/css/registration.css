@@ -1,0 +1,164 @@
+#signupform{
+	margin-top:24px;	
+}
+#signupform > div {
+	margin-top: 12px;	
+}
+form > input,select {
+	width: 200px;
+	padding: 3px;
+	background: #F3F9DD;
+}
+
+#loginform{
+	margin-top:24px;	
+}
+#loginform > div {
+	margin-top: 12px;	
+}
+form input {
+	width: 200px;
+	padding: 3px;
+	background: #F3F9DD;
+}
+.loginfont {
+	font-size: 14px;
+	color: white;
+	display: inline-block;
+	width:150px;
+	vertical-align: top;
+}
+
+.welcome {
+	background: white;
+	padding: 0px;
+	margin:auto;
+	height: 550px;
+}
+.welcomeimage {
+	background: url('http://local.worldrainbowfamily.org/template/default/images/motherearth.png');
+	width: 385px;
+	height: 480px;
+	margin-right: 50px;
+	background-repeat: no-repeat;
+}
+.registration_form {
+	padding: 10px;
+	margin-right: 50px;
+
+}
+.welcomemsg {
+	text-align: center;
+	font: 40px bold 'Lucida Grande';
+	font-family: "Arial";
+	color: #f2eff4;
+	font-weight: bolder;
+	z-index: 100;
+	margin-left: 30px
+}
+.welcomemsg-shadow {
+	margin-left: 30px;
+	position:relative; top:-47px;left:-1px;
+	text-align: center;
+	font: 30pt bold 'Lucida Grande';
+	font-family: "Arial";
+	color: #311a3b;
+	z-index: 0;
+	font-weight: bolder;
+}
+.modal {
+    position: absolute;
+    top:100px;
+    left:25%;
+    height:300px;
+    width:600px;
+    display:block;
+    z-index: 2088880;
+    background: #dcdded;
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+    -moz-box-shadow: 2px 2px 10px 2px #000; 
+    -webkit-box-shadow: 2px 2px 10px 2px #000; 
+    box-shadow: 2px 2px 10px 2px #000; 
+}
+
+.modal-bg { 
+    position: fixed; 
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0; 
+    background: #141414; /*fallback color if browser doesn’t support rgba*/
+    background: rgba(14,14,14,0.85);
+    cursor: pointer;
+    z-index: 199;
+}
+
+
+element.style {
+}
+
+
+element.style {
+}
+
+.treeimage {
+	vertical-align:top;
+	display:inline-block;
+	background-image: url('/template/default/images/treeoflife2.png');
+	height:400px;width:300px;
+	background-repeat: no-repeat;
+
+}
+
+
+.facebook-login {
+font-size: 11px;
+color:white;
+margin-top: 5px;
+font-family: Verdana,geneva,sans-serif;
+font-weight: bold;
+font-style: normal;
+color: #6e1919;
+text-decoration: none;
+word-spacing: 0;
+line-height: 14px;
+vertical-align: baseline;
+background-color: #29447e;
+background-image: url("/template/default/_graphics/facebookicon.gif");
+background-repeat: no-repeat;
+background-position: 0 0;
+background-attachment: scroll;
+height: 22px;
+border-width: 0px;
+width: auto;
+padding: 0 0 0 1px;
+cursor: pointer;
+outline: medium none;
+}
+
+
+
+.facebook-button{
+font-family: "Lucida Grande",tahoma,Verdana,arial,sans-serif;
+font-size: 11px;
+font-weight: bold;
+color: white;
+line-height: 14px;
+text-align: right;
+background-color: #5f78ab;
+display: block;
+width: auto;
+height: 14px;
+margin: 1px 1px 0 17px;
+padding: 2px 6px 3px 6px;
+border-top: 1px solid #879ac0;
+border-bottom: 1px solid #1a356e;
+}
+.loginfont a {
+	color: white;
+	font-size: 12px;
+}
+

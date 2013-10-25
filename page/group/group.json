@@ -1,0 +1,17 @@
+
+  	{
+         "page" : "group",
+	     "template" : "default",
+	     "layout" : "twosidebar",
+	     "inherit" : "master",
+		 "title" : "World Rainbow Family - Groups",
+	     "content" : "group/group.php",
+	     "head" : "group/head.php",
+	     "sidebar_menu" : "group/sidebar_menu.php",
+	     "header" : "group/header.php",
+	     "footer" : "feed/footer.php",
+	     "handler" : "group/handler.php",
+	     "sidebar_left" : "group/sidebar_left.php",
+	     "sidebar_right" : "group/sidebar_right.php"
+	  }
+	

@@ -1,0 +1,12 @@
+
+{
+    "page" : "avatar",
+    "template" : "default",
+    "layout" : "nosidebar",
+    "inherit" : "master",
+	"title" : "World Rainbow Family - Edit Avatar",
+	"head" : "avatar/head.php",
+	"header" : "avatar/header.php",
+	"content" : "avatar/editavatar.php"
+}
+

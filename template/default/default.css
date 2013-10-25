@@ -1,0 +1,13 @@
+
+.system_popup {
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	border: 1px;
+	border-width: 1px;
+	border-color: green;
+	background-color: orange;
+	padding-left: 5px;
+	padding-right: 5px;
+
+}

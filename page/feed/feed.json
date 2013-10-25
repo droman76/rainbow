@@ -1,0 +1,13 @@
+
+	  {
+         "page" : "feed",
+	     "template" : "default",
+	     "layout" : "twosidebar",
+	     "inherit" : "master",
+		 "title" : "World Rainbow Family - Activation",
+	     "content" : "feed/feed.php",
+	     "head" : "feed/head.php",
+	     "footer" : "feed/footer.php",
+	     "sidebar_right" : "feed/sidebar_right.php"
+	  }
+	

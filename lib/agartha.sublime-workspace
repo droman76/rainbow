@@ -1,0 +1,1111 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get_logged",
+				"get_logged_in_user_id"
+			],
+			[
+				"get_lo",
+				"get_logged_in_user_id"
+			],
+			[
+				"post",
+				"posttxt"
+			],
+			[
+				"comment",
+				"commenttxt"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"object",
+				"object_id"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"function",
+				"function_exists"
+			],
+			[
+				"action",
+				"action_html"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"optimal",
+				"optimalWidth"
+			],
+			[
+				"is",
+				"isset"
+			],
+			[
+				"fe",
+				"fetch_object"
+			],
+			[
+				"str_rep",
+				"str_replace"
+			],
+			[
+				"system",
+				"system_msg"
+			],
+			[
+				"str_re",
+				"str_replace"
+			],
+			[
+				"str",
+				"strtolower"
+			],
+			[
+				"babel",
+				"babelfish"
+			],
+			[
+				"sour",
+				"source_type"
+			],
+			[
+				"comm",
+				"comment_id"
+			],
+			[
+				"source",
+				"source_id"
+			],
+			[
+				"souce",
+				"source_type"
+			],
+			[
+				"respo",
+				"responseText"
+			],
+			[
+				"local",
+				"local_postid"
+			],
+			[
+				"image",
+				"image_extension"
+			],
+			[
+				"pa",
+				"path_to_file"
+			],
+			[
+				"ex",
+				"external_source_name"
+			],
+			[
+				"ext",
+				"external_source_id"
+			],
+			[
+				"exte",
+				"external_user_id"
+			],
+			[
+				"external",
+				"external_post_id"
+			],
+			[
+				"extern",
+				"external_userid"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"border",
+				"border-width"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"inline",
+				"inline-block"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/daniel/Sites/agartha/public/config.php",
+			"settings":
+			{
+				"buffer_size": 893,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/daniel/Sites/agartha/public/page/userlogin/head.php",
+			"settings":
+			{
+				"buffer_size": 2854,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/daniel/Sites/agartha/public/action/user/addfriend_ajx.php",
+			"settings":
+			{
+				"buffer_size": 2034,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/daniel/Sites/agartha/public/lib/geolocation.php",
+			"settings":
+			{
+				"buffer_size": 1598,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/daniel/Sites/agartha/public/page/master/topbar.php",
+			"settings":
+			{
+				"buffer_size": 7612,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/daniel/Sites/agartha/public/page/master/header.php",
+			"settings":
+			{
+				"buffer_size": 2223,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 27.0,
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: babel"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 114.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/daniel/Sites/agartha/public/sftp-config.json",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/head.php",
+		"/Users/daniel/Sites/rainbow/dev/page/messaging/messaging.css",
+		"/Users/daniel/Sites/rainbow/dev/action/messaging/loadnotifications_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/master/topbar.php",
+		"/Users/daniel/Sites/rainbow/dev/lib/cronos.php",
+		"/Users/daniel/Sites/rainbow/dev/lib/functions.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/post-get-new_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/bless_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/share_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/comment_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/language/en/user.en",
+		"/Users/daniel/Sites/rainbow/dev/language/en/mailer.en",
+		"/Users/daniel/Sites/rainbow/dev/language/en/messaging.en",
+		"/Users/daniel/Sites/rainbow/dev/action/user/addfriend_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/post_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/lib/notifications.php",
+		"/Users/daniel/Sites/rainbow/dev/lib/imagegenerator.php",
+		"/Users/daniel/Library/Application Support/Sublime Text 3/Packages/User/singlequery",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/feed.php",
+		"/Users/daniel/Sites/rainbow/dev/page/messaging/messaging.js",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/sidebar_right.php",
+		"/var/folders/sn/wvg2zhpj41302dy9kl999hl80000gn/T/sublime-sftp-browse-1382208524/mapped/home/rainbow/world/dev/config.php",
+		"/Users/daniel/Sites/rainbow/dev/config.php",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/feediterator.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/acceptfriend_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/template/default/css.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/group_item.php",
+		"/Users/daniel/Sites/rainbow/dev/phpinfo.php",
+		"/Users/daniel/Sites/rainbow/dev/action/group/create.php",
+		"/Users/daniel/Sites/rainbow/dev/js/main.js",
+		"/Users/daniel/Sites/rainbow/dev/page/avatar/head.php",
+		"/Users/daniel/Sites/rainbow/dev/action/messaging/getnewmessages_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/messaging/readconversation_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/feed_item.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/group_form.php",
+		"/Users/daniel/Sites/rainbow/dev/page/messaging/conversation_item.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/profileview.php",
+		"/Users/daniel/Sites/rainbow/dev/action/messaging/send_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/messaging/readinbox_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/master/sidebar_left.php",
+		"/Users/daniel/Sites/rainbow/dev/page/master/sidebar_menu.php",
+		"/Users/daniel/Sites/rainbow/dev/action/messaging/readfriendinbox_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/avatar/editavatar.php",
+		"/Users/daniel/Sites/rainbow/dev/language/en/avatar.en",
+		"/Users/daniel/Sites/rainbow/dev/action/user/login.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/cover.php",
+		"/Users/daniel/Sites/rainbow/dev/page/denied/header.php",
+		"/Users/daniel/Sites/rainbow/dev/page/denied/denied.json",
+		"/Users/daniel/Sites/rainbow/dev/lib/babelfish.php",
+		"/Users/daniel/Sites/rainbow/dev/sftp-config.json",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/profile_feed_item.php",
+		"/Users/daniel/Sites/rainbow/dev/action/profile/upload_cover.php",
+		"/Users/daniel/Sites/rainbow/dev/page/master/header.php",
+		"/Users/daniel/Sites/rainbow/dev/page/master/top_menu.php",
+		"/Users/daniel/Sites/rainbow/dev/index.php",
+		"/Users/daniel/Sites/rainbow/dev/language/en/feed.en",
+		"/Users/daniel/Sites/rainbow/dev/action/avatar/upload.php",
+		"/var/folders/sn/wvg2zhpj41302dy9kl999hl80000gn/T/sublime-sftp-browse-1382043385/mapped/home/rainbow/world/dev/config.php",
+		"/Users/daniel/Sites/rainbow/dev/page/avatar/config.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/upload_images.php",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/feed_input.php",
+		"/Users/daniel/Sites/rainbow/dev/action/profile/save.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/ajax_signup.php",
+		"/Users/daniel/Sites/rainbow/dev/template/default/default.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/facebook_login.php",
+		"/Users/daniel/Sites/rainbow/dev/action/profile/postwall.php",
+		"/Users/daniel/Sites/rainbow/dev/action/group/post_ajx.php",
+		"/var/folders/sn/wvg2zhpj41302dy9kl999hl80000gn/T/sublime-sftp-browse-1382031455/mapped/home/rainbow/world/dev/config.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/sidebar_menu.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/sidebar_left.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/logout.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/group.php",
+		"/Users/daniel/Sites/rainbow/dev/action/profile/updatelocation_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/head.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/profile.php",
+		"/Users/daniel/Sites/rainbow/dev/page/userlogin/js/registration_js.php",
+		"/Users/daniel/Sites/rainbow/dev/lib/pagehandler.php",
+		"/Users/daniel/Sites/rainbow/dev/action/profile/profile_popup.php",
+		"/Users/daniel/Sites/rainbow/dev/page/userlogin/registration_login.php",
+		"/Users/daniel/Sites/rainbow/dev/language/en/userlogin.en",
+		"/Users/daniel/Sites/rainbow/dev/page/group/editgroup.php",
+		"/Users/daniel/Sites/rainbow/dev/test.php",
+		"/Users/daniel/Sites/rainbow/dev/language/en/profile.en",
+		"/Users/daniel/Sites/rainbow/dev/language/en/prokk.en",
+		"/Users/daniel/Sites/rainbow/dev/language/en/profilesdf.en",
+		"/Users/daniel/Sites/rainbow/dev/language/en/lok.en",
+		"/Users/daniel/Sites/rainbow/dev/page/cron/PostProcessor.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/profile.json",
+		"/Users/daniel/Sites/rainbow/dev/page/group/group_input.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/unfriend_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/updatefriendlevel_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/head.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/footer.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/sidebar_right.php",
+		"/Users/daniel/Sites/rainbow/dev/action/group/join.php",
+		"/Users/daniel/Sites/rainbow/dev/action/group/leave.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/listgroups.php",
+		"/Users/daniel/Sites/rainbow/dev/lib/image_resize.php",
+		"/Users/daniel/Sites/rainbow/dev/page/cron/cron.php",
+		"/Users/daniel/Sites/rainbow/dev/page/denied/access_denied.php",
+		"/Users/daniel/Sites/rainbow/dev/language/en/group.en",
+		"/Users/daniel/Sites/rainbow/dev/action/user/rejectfriend_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/readfeed_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/master/sidebar_right.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/handler.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/newgroup.php",
+		"/Users/daniel/Sites/rainbow/dev/page/group/group.json",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/feed.css",
+		"/Users/daniel/Sites/rainbow/dev/action/search/search_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/undoshare_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/config_remote.php",
+		"/Users/daniel/Sites/rainbow/dev/action/user/followperson_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/feed/feed_comment.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/undobless_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/undofollow_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/follow_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/template/default/default.css",
+		"/Users/daniel/Sites/rainbow/dev/lib/database.php",
+		"/Users/daniel/Sites/rainbow/dev/action/feed/delete_ajx.php",
+		"/Users/daniel/Sites/rainbow/dev/page/userlogin/head.php",
+		"/Users/daniel/Sites/rainbow/dev/page/profile/profile.css",
+		"/Users/daniel/Sites/rainbow/dev/page/cron/cron.json",
+		"/Users/daniel/Sites/rainbow/dev/page/cron/header.php",
+		"/Users/daniel/Sites/rainbow/dev/template/default/_graphics/treeoflife2.jpg",
+		"/Users/daniel/Sites/rainbow/dev/page/userlogin/css/registration.css",
+		"/Users/daniel/Sites/rainbow/dev/page/avatar/header.php",
+		"/Users/daniel/Sites/rainbow/dev/page/avatar/avatar.json"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+			"/Users/daniel/Sites/rainbow/dev",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"logo",
+			"cronos",
+			"insert into notifications",
+			"mail",
+			"$from",
+			"notify",
+			"cronos",
+			"show",
+			"rainbow-icon",
+			"rainbow-icon-mail",
+			"rainbow-icon",
+			"loadProfile",
+			"findPos",
+			"showBox",
+			"conversation-container",
+			"scrollTop",
+			"style.overflowY",
+			"selectedconversation",
+			"add_user_to_group",
+			"$_SESSION['translator']",
+			"about",
+			"comment",
+			"$img_src",
+			"'continent",
+			"cronos()",
+			"update_login",
+			"$_SESSION['data']",
+			"CONFIG->data",
+			"activate_user",
+			"location",
+			"myimages",
+			"user_name",
+			"proces",
+			"addFriend",
+			"ILOG",
+			"focus",
+			"processor",
+			"displayComments",
+			"inbox-main",
+			"inbox_main",
+			"p_friendinfoadd",
+			"Please select the level of connection",
+			"profile-p",
+			"profile-p_friendinfoadd",
+			"ExtInfo2",
+			"blessings!",
+			"ilog",
+			"ilog(",
+			"blessings",
+			"got blessings",
+			"getNewMailCount",
+			"messages-new",
+			"></",
+			"-new",
+			"counter",
+			"language file",
+			"retrieving language file",
+			"mkdir",
+			"clear",
+			"share",
+			"feed",
+			"$blessings",
+			"p_blessed_this",
+			"blessings",
+			"echo",
+			"utf8",
+			"button",
+			"love",
+			"updating cronos",
+			"$_SESSION['user_language'] =",
+			"$_SESSION['user_language']",
+			"$lang",
+			"insert into users",
+			"$_SESSION['country']",
+			"$_SESSION[\"country\"]",
+			"hope",
+			"Unknown",
+			"explode(",
+			"explode",
+			"split(",
+			"rainbow-menu-item-friends",
+			"friends",
+			"logo",
+			"Routing Page",
+			"t_siteroot",
+			"t_siteroot ="
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"follow",
+			"$items",
+			"p_shared_this",
+			"sharings",
+			"split(",
+			"explode(",
+			"CONFIG->siteroot"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/daniel/Sites/agartha/public/config.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								684,
+								684
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 167.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/daniel/Sites/agartha/public/page/userlogin/head.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								401,
+								401
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 65.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/daniel/Sites/agartha/public/action/user/addfriend_ajx.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2034,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1749,
+								1749
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 835.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/daniel/Sites/agartha/public/lib/geolocation.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1598,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1347,
+								1347
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/daniel/Sites/agartha/public/page/master/topbar.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7612,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6857,
+								6857
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 69.0,
+						"translation.y": 2582.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/daniel/Sites/agartha/public/page/master/header.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								497,
+								497
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 3,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 161.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 154.0
+	},
+	"project": "agartha.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"topbar",
+				"page/master/topbar.php"
+			],
+			[
+				"header.ph",
+				"page/master/header.php"
+			],
+			[
+				"geol",
+				"lib/geolocation.php"
+			],
+			[
+				"noti",
+				"lib/notifications.php"
+			],
+			[
+				"function",
+				"lib/functions.php"
+			],
+			[
+				"cros",
+				"lib/cronos.php"
+			],
+			[
+				"load",
+				"action/messaging/loadnotifications_ajx.php"
+			],
+			[
+				"messa",
+				"page/messaging/messaging.css"
+			],
+			[
+				"head",
+				"page/feed/head.php"
+			],
+			[
+				"cronos",
+				"lib/cronos.php"
+			],
+			[
+				"func",
+				"lib/functions.php"
+			],
+			[
+				"sidebar_",
+				"page/feed/sidebar_right.php"
+			],
+			[
+				"feediter",
+				"page/feed/feediterator.php"
+			],
+			[
+				"css",
+				"template/default/css.php"
+			],
+			[
+				"css.php",
+				"template/default/css.php"
+			],
+			[
+				"top",
+				"page/master/topbar.php"
+			],
+			[
+				"feeditem",
+				"page/feed/feed_item.php"
+			],
+			[
+				"topba",
+				"page/master/topbar.php"
+			],
+			[
+				"head.php",
+				"page/avatar/head.php"
+			],
+			[
+				"sidebar",
+				"page/master/sidebar_menu.php"
+			],
+			[
+				"sidebar_lef",
+				"page/master/sidebar_left.php"
+			],
+			[
+				"message",
+				"page/messaging/messaging.js"
+			],
+			[
+				"feed.php",
+				"page/feed/feed.php"
+			],
+			[
+				"babel",
+				"lib/babelfish.php"
+			],
+			[
+				"login",
+				"action/user/login.php"
+			],
+			[
+				"header",
+				"page/master/header.php"
+			],
+			[
+				"messaging",
+				"page/messaging/messaging.js"
+			],
+			[
+				"feed",
+				"page/feed/feed.php"
+			],
+			[
+				"feed_ite",
+				"page/feed/feed_item.php"
+			],
+			[
+				"feed_item",
+				"page/feed/feed_item.php"
+			],
+			[
+				"sidebar_left",
+				"page/master/sidebar_left.php"
+			],
+			[
+				"feedite",
+				"page/feed/feed_item.php"
+			],
+			[
+				"main",
+				"js/main.js"
+			],
+			[
+				"messagin",
+				"page/messaging/messaging.js"
+			],
+			[
+				"pageh",
+				"lib/pagehandler.php"
+			],
+			[
+				"feedi",
+				"page/feed/feediterator.php"
+			],
+			[
+				"sideba",
+				"page/master/sidebar_left.php"
+			],
+			[
+				"fu",
+				"lib/functions.php"
+			],
+			[
+				"sideb",
+				"page/group/sidebar_left.php"
+			],
+			[
+				"fun",
+				"lib/functions.php"
+			],
+			[
+				"postget",
+				"action/feed/post-get-new_ajx.php"
+			],
+			[
+				"head.",
+				"page/feed/head.php"
+			],
+			[
+				"sidebar_le",
+				"page/master/sidebar_left.php"
+			],
+			[
+				"sidebar_ri",
+				"page/feed/sidebar_right.php"
+			],
+			[
+				"sidebat",
+				"page/group/sidebar_left.php"
+			],
+			[
+				"mess",
+				"page/messaging/messaging.js"
+			],
+			[
+				"header.",
+				"page/master/header.php"
+			],
+			[
+				"sidebarr",
+				"page/feed/sidebar_right.php"
+			],
+			[
+				"",
+				"page/feed/head.php"
+			],
+			[
+				"hea",
+				"page/feed/head.php"
+			],
+			[
+				"header.php",
+				"mod/loginrequired/views/default/page/elements/header.php"
+			],
+			[
+				"sidemenu",
+				"page/master/sidebar_menu.php"
+			],
+			[
+				"left",
+				"page/master/sidebar_left.php"
+			],
+			[
+				"create",
+				"action/group/create.php"
+			],
+			[
+				"feeditera",
+				"page/feed/feediterator.php"
+			],
+			[
+				"input",
+				"page/feed/feed_input.php"
+			],
+			[
+				"message.css",
+				"page/messaging/messaging.css"
+			],
+			[
+				"feed.css",
+				"page/feed/feed.css"
+			],
+			[
+				"feed_it",
+				"page/feed/feed_item.php"
+			],
+			[
+				"feed.en",
+				"language/en/feed.en"
+			],
+			[
+				"default.php",
+				"template/default/default.php"
+			],
+			[
+				"default",
+				"template/default/default.css"
+			],
+			[
+				"feed.cs",
+				"page/feed/feed.css"
+			],
+			[
+				"db",
+				"lib/database.php"
+			],
+			[
+				"imagegen",
+				"lib/imagegenerator.php"
+			],
+			[
+				"main.js",
+				"js/main.js"
+			],
+			[
+				"messagin.css",
+				"page/messaging/messaging.css"
+			],
+			[
+				"postpro",
+				"page/cron/PostProcessor.php"
+			],
+			[
+				"cron",
+				"page/cron/cron.php"
+			],
+			[
+				"profile.p",
+				"page/profile/profile.php"
+			],
+			[
+				"profile.css",
+				"page/profile/profile.css"
+			],
+			[
+				"pro",
+				"page/profile/profileview.php"
+			],
+			[
+				"commen",
+				"page/feed/feed_comment.php"
+			],
+			[
+				"databa",
+				"lib/database.php"
+			],
+			[
+				"post",
+				"action/feed/post_ajx.php"
+			],
+			[
+				"profileit",
+				"page/profile/profile_feed_item.php"
+			],
+			[
+				"regi",
+				"page/userlogin/registration_login.php"
+			],
+			[
+				"profile",
+				"page/profile/profile.php"
+			],
+			[
+				"view",
+				"page/profile/profileview.php"
+			],
+			[
+				"sidemen",
+				"page/master/sidebar_menu.php"
+			],
+			[
+				"tempdefau",
+				"template/default/default.php"
+			],
+			[
+				"maheade",
+				"page/master/header.php"
+			],
+			[
+				"index",
+				"index.php"
+			],
+			[
+				"sidebarmen",
+				"page/master/sidebar_menu.php"
+			],
+			[
+				"data",
+				"lib/database.php"
+			],
+			[
+				"ushead.php",
+				"page/userlogin/head.php"
+			],
+			[
+				"setti",
+				"page/userlogin/registration_login.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/rainbow.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 267.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

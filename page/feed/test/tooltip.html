@@ -1,0 +1,163 @@
+<html>
+
+<head>
+<style>
+
+body {
+	font-size: 11px;
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	color: #333;
+	line-height: 1.28; 
+	text-align: left;
+	direction: ltr;
+}
+
+.uiContextualDialogPositioner, .uiContextualDialogPositioner .uiContextualDialog {
+	position: absolute;
+	z-index: 200;
+}
+
+.uiContextualDialogLeft .uiContextualDialog {
+	right: 0;
+}
+
+.uiOverlayArrowRight {
+	padding-right: 10px;
+}
+
+.uiOverlay {
+	position: relative;
+	z-index: 200;
+}
+
+.uiContextualDialog, .uiContextualDialog:focus {
+	outline: 0 solid transparent;
+}
+
+.uiOverlayContent {
+	background: white;
+	border: 1px solid #8C8C8C;
+	border: 1px solid rgba(0, 0, 0, .45);
+	border-bottom: 1px solid #666;
+	-moz-box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+	box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+	position: relative;
+}
+
+.uiOverlayContentHolder {
+	padding: 10px;
+}
+
+.uiOverlayArrow {
+	position: absolute;
+	overflow: hidden;
+}
+
+.uiOverlayArrowRight .uiOverlayArrow {
+	background-image: url('http://local.worldrainbowfamily.org/page/feed/test/sprite.png');
+	background-repeat: no-repeat;
+	background-position: 108px 0px;
+	height: 18px;
+	right: 2px;
+	width: 120px;
+}
+
+.uiOverlayArrowRight .uiUpArrow {
+	position:relative;
+	background-image: url('http://local.worldrainbowfamily.org/page/feed/test/arrow_up.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	height: 18px;
+	top:8px;
+	left: 20px;
+	width: 120px;
+	z-index: 400;
+}
+</style>
+
+<script>
+
+
+function findPos(obj) {
+	var curleft = curtop = 0;
+	if (obj.offsetParent) {
+		do {
+			curleft += obj.offsetLeft;
+			curtop += obj.offsetTop;
+			} while (obj = obj.offsetParent);
+			return [curleft,curtop];
+		}
+}
+
+function show(e,target) {
+	pos = findPos(e);
+	tp = document.getElementById(target);
+	tp.style.top = pos[1]+30;
+	tp.style.left = pos[0]+500;
+	tp.style.display = 'block';
+
+}
+
+
+var mousein = false;
+function onTargetMouseOut(event,target) {
+	mousein=false;
+	
+	setTimeout(function() {
+		if (mousein == true) return;
+		onMouseOut(event,target);
+	}, 300);
+
+}
+function onMouseIn() {
+	mousein = true;
+}
+
+function onMouseOut(event,target) {
+	k = document.getElementById(target);
+//this is the original element the event handler was assigned to
+   var e = event.toElement || event.relatedTarget;
+
+//check for all children levels (checking from bottom up)
+while(e && e.parentNode && e.parentNode != window) {
+    if (e.parentNode == k||  e == k) {
+        if(e.preventDefault) e.preventDefault();
+        return false;
+    }
+    e = e.parentNode;
+}
+	k.style.display = 'none';
+
+}
+
+</script>
+
+</head>
+
+<body onload='loadListeners()'>
+	
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div id='container'>
+
+<span style='position:relative;left:350px;'><h1>
+gato gato <span onmouseover='show(this,"tooltip")' onmouseout='onTargetMouseOut(event,"tooltip")' id='target'>here</span>gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato 
+	
+gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato gato </h1>
+</span>
+
+
+</div>
+
+<div id='tooltip' onmouseover='onMouseIn(event)' onmouseout='onMouseOut(event,"tooltip")' class="uiContextualDialogPositioner uiContextualDialogLeft" style="top: 330px; left: 600px;display:none">
+	<div class="uiOverlay uiContextualDialog uiOverlayArrowRight" style="width: 347px; top: 0px; ">
+		<div class="uiOverlayContent">
+			<div class="uiOverlayContentHolder" onmouseover='onMouseIn()'>
+				<b>Events</b>
+				<hr>
+				This is content can be any sizze This is content can be any sizze!!This is content can be any sizze!!This is content can be any sizze!!This is content can be any sizze!!This is content can be any sizze!!This is content can be any sizze!!This is content can be any sizze!!This is content can be any sizze!!			</div>
+		</div>
+		<div class="uiOverlayArrow" style="top: 15px; margin-top: 0px;"></div>
+	</div>
+</div>
+</body>

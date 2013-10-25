@@ -1,0 +1,1095 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"system",
+				"system_msg"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"border",
+				"border-color"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"is",
+				"isset"
+			],
+			[
+				"sess",
+				"session_start"
+			],
+			[
+				"attachment",
+				"attachment_html"
+			],
+			[
+				"url",
+				"urlencode"
+			],
+			[
+				"link",
+				"link_description"
+			],
+			[
+				"vide",
+				"video_src"
+			],
+			[
+				"lin",
+				"link_title"
+			],
+			[
+				"erro",
+				"error_log"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<?php\n/*\n* Copyright (c) 2008 http://www.webmotionuk.com / http://www.webmotionuk.co.uk\n* \"PHP & Jquery image upload & crop\"\n* Date: 2008-11-21\n* Ver 1.2\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n*\n* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND \n* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED \n* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. \n* IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, \n* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, \n* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS \n* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, \n* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF \n* THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n*\n*/\n//only assign a new timestamp if the session variable is empty\nif (!isset($_SESSION['random_key']) || strlen($_SESSION['random_key'])==0){\n    $_SESSION['random_key'] = strtotime(date('Y-m-d H:i:s')); //assign the timestamp to the session variable\n	$_SESSION['user_file_ext']= \"\";\n}\n#########################################################################################################\n# CONSTANTS																								#\n# You can alter the options below																		#\n#########################################################################################################\n$upload_dir = \"upload_pic\"; 				// The directory for the images to be saved in\n$upload_path = $upload_dir.\"/\";				// The path to where the image will be saved\n$large_image_prefix = \"resize_\"; 			// The prefix name to large image\n$thumb_image_prefix = \"thumbnail_\";			// The prefix name to the thumb image\n$large_image_name = $large_image_prefix.$_SESSION['random_key'];     // New name of the large image (append the timestamp to the filename)\n$thumb_image_name = $thumb_image_prefix.$_SESSION['random_key'];     // New name of the thumbnail image (append the timestamp to the filename)\n$max_file = \"3\"; 							// Maximum file size in MB\n$max_width = \"500\";							// Max width allowed for the large image\n$thumb_width = \"100\";						// Width of thumbnail image\n$thumb_height = \"100\";						// Height of thumbnail image\n// Only one of these image types should be allowed for upload\n$allowed_image_types = array('image/pjpeg'=>\"jpg\",'image/jpeg'=>\"jpg\",'image/jpg'=>\"jpg\",'image/png'=>\"png\",'image/x-png'=>\"png\",'image/gif'=>\"gif\");\n$allowed_image_ext = array_unique($allowed_image_types); // do not change this\n$image_ext = \"\";	// initialise variable, do not change this.\nforeach ($allowed_image_ext as $mime_type => $ext) {\n    $image_ext.= strtoupper($ext).\" \";\n}\n\n\n##########################################################################################################\n# IMAGE FUNCTIONS																						 #\n# You do not need to alter these functions																 #\n##########################################################################################################\nfunction resizeImage($image,$width,$height,$scale) {\n	list($imagewidth, $imageheight, $imageType) = getimagesize($image);\n	$imageType = image_type_to_mime_type($imageType);\n	$newImageWidth = ceil($width * $scale);\n	$newImageHeight = ceil($height * $scale);\n	$newImage = imagecreatetruecolor($newImageWidth,$newImageHeight);\n	switch($imageType) {\n		case \"image/gif\":\n			$source=imagecreatefromgif($image); \n			break;\n	    case \"image/pjpeg\":\n		case \"image/jpeg\":\n		case \"image/jpg\":\n			$source=imagecreatefromjpeg($image); \n			break;\n	    case \"image/png\":\n		case \"image/x-png\":\n			$source=imagecreatefrompng($image); \n			break;\n  	}\n	imagecopyresampled($newImage,$source,0,0,0,0,$newImageWidth,$newImageHeight,$width,$height);\n	\n	switch($imageType) {\n		case \"image/gif\":\n	  		imagegif($newImage,$image); \n			break;\n      	case \"image/pjpeg\":\n		case \"image/jpeg\":\n		case \"image/jpg\":\n	  		imagejpeg($newImage,$image,90); \n			break;\n		case \"image/png\":\n		case \"image/x-png\":\n			imagepng($newImage,$image);  \n			break;\n    }\n	\n	chmod($image, 0777);\n	return $image;\n}\n//You do not need to alter these functions\nfunction resizeThumbnailImage($thumb_image_name, $image, $width, $height, $start_width, $start_height, $scale){\n	list($imagewidth, $imageheight, $imageType) = getimagesize($image);\n	$imageType = image_type_to_mime_type($imageType);\n	\n	$newImageWidth = ceil($width * $scale);\n	$newImageHeight = ceil($height * $scale);\n	$newImage = imagecreatetruecolor($newImageWidth,$newImageHeight);\n	switch($imageType) {\n		case \"image/gif\":\n			$source=imagecreatefromgif($image); \n			break;\n	    case \"image/pjpeg\":\n		case \"image/jpeg\":\n		case \"image/jpg\":\n			$source=imagecreatefromjpeg($image); \n			break;\n	    case \"image/png\":\n		case \"image/x-png\":\n			$source=imagecreatefrompng($image); \n			break;\n  	}\n	imagecopyresampled($newImage,$source,0,0,$start_width,$start_height,$newImageWidth,$newImageHeight,$width,$height);\n	switch($imageType) {\n		case \"image/gif\":\n	  		imagegif($newImage,$thumb_image_name); \n			break;\n      	case \"image/pjpeg\":\n		case \"image/jpeg\":\n		case \"image/jpg\":\n	  		imagejpeg($newImage,$thumb_image_name,90); \n			break;\n		case \"image/png\":\n		case \"image/x-png\":\n			imagepng($newImage,$thumb_image_name);  \n			break;\n    }\n	chmod($thumb_image_name, 0777);\n	return $thumb_image_name;\n}\n//You do not need to alter these functions\nfunction getHeight($image) {\n	$size = getimagesize($image);\n	$height = $size[1];\n	return $height;\n}\n//You do not need to alter these functions\nfunction getWidth($image) {\n	$size = getimagesize($image);\n	$width = $size[0];\n	return $width;\n}\n\n//Image Locations\n$large_image_location = $upload_path.$large_image_name.$_SESSION['user_file_ext'];\n$thumb_image_location = $upload_path.$thumb_image_name.$_SESSION['user_file_ext'];\n\n//Create the upload directory with the right permissions if it doesn't exist\nif(!is_dir($upload_dir)){\n	mkdir($upload_dir, 0777);\n	chmod($upload_dir, 0777);\n}\n\n//Check to see if any images with the same name already exist\nif (file_exists($large_image_location)){\n	if(file_exists($thumb_image_location)){\n		$thumb_photo_exists = \"<img src=\\\"\".$upload_path.$thumb_image_name.$_SESSION['user_file_ext'].\"\\\" alt=\\\"Thumbnail Image\\\"/>\";\n	}else{\n		$thumb_photo_exists = \"\";\n	}\n   	$large_photo_exists = \"<img src=\\\"\".$upload_path.$large_image_name.$_SESSION['user_file_ext'].\"\\\" alt=\\\"Large Image\\\"/>\";\n} else {\n   	$large_photo_exists = \"\";\n	$thumb_photo_exists = \"\";\n}\n\nif (isset($_POST[\"upload\"])) { \n	//Get the file information\n	$userfile_name = $_FILES['image']['name'];\n	$userfile_tmp = $_FILES['image']['tmp_name'];\n	$userfile_size = $_FILES['image']['size'];\n	$userfile_type = $_FILES['image']['type'];\n	$filename = basename($_FILES['image']['name']);\n	$file_ext = strtolower(substr($filename, strrpos($filename, '.') + 1));\n	\n	//Only process if the file is a JPG, PNG or GIF and below the allowed limit\n	if((!empty($_FILES[\"image\"])) && ($_FILES['image']['error'] == 0)) {\n		\n		foreach ($allowed_image_types as $mime_type => $ext) {\n			//loop through the specified image types and if they match the extension then break out\n			//everything is ok so go and check file size\n			if($file_ext==$ext && $userfile_type==$mime_type){\n				$error = \"\";\n				break;\n			}else{\n				$error = \"Only <strong>\".$image_ext.\"</strong> images accepted for upload<br />\";\n			}\n		}\n		//check if the file size is above the allowed limit\n		if ($userfile_size > ($max_file*1048576)) {\n			$error.= \"Images must be under \".$max_file.\"MB in size\";\n		}\n		\n	}else{\n		$error= \"Select an image for upload\";\n	}\n	//Everything is ok, so we can upload the image.\n	if (strlen($error)==0){\n		\n		if (isset($_FILES['image']['name'])){\n			//this file could now has an unknown file extension (we hope it's one of the ones set above!)\n			$large_image_location = $large_image_location.\".\".$file_ext;\n			$thumb_image_location = $thumb_image_location.\".\".$file_ext;\n			\n			//put the file ext in the session so we know what file to look for once its uploaded\n			$_SESSION['user_file_ext']=\".\".$file_ext;\n			\n			move_uploaded_file($userfile_tmp, $large_image_location);\n			chmod($large_image_location, 0777);\n			\n			$width = getWidth($large_image_location);\n			$height = getHeight($large_image_location);\n			//Scale the image if it is greater than the width set above\n			if ($width > $max_width){\n				$scale = $max_width/$width;\n				$uploaded = resizeImage($large_image_location,$width,$height,$scale);\n			}else{\n				$scale = 1;\n				$uploaded = resizeImage($large_image_location,$width,$height,$scale);\n			}\n			//Delete the thumbnail file so the user can create a new one\n			if (file_exists($thumb_image_location)) {\n				unlink($thumb_image_location);\n			}\n		}\n		//Refresh the page to show the new uploaded image\n		header(\"location:\".$_SERVER[\"PHP_SELF\"]);\n		exit();\n	}\n}\n\nif (isset($_POST[\"upload_thumbnail\"]) && strlen($large_photo_exists)>0) {\n	//Get the new coordinates to crop the image.\n	$x1 = $_POST[\"x1\"];\n	$y1 = $_POST[\"y1\"];\n	$x2 = $_POST[\"x2\"];\n	$y2 = $_POST[\"y2\"];\n	$w = $_POST[\"w\"];\n	$h = $_POST[\"h\"];\n	//Scale the image to the thumb_width set above\n	$scale = $thumb_width/$w;\n	$cropped = resizeThumbnailImage($thumb_image_location, $large_image_location,$w,$h,$x1,$y1,$scale);\n	//Reload the page again to view the thumbnail\n	header(\"location:\".$_SERVER[\"PHP_SELF\"]);\n	exit();\n}\n\n\nif ($_GET['a']==\"delete\" && strlen($_GET['t'])>0){\n//get the file locations \n	$large_image_location = $upload_path.$large_image_prefix.$_GET['t'];\n	$thumb_image_location = $upload_path.$thumb_image_prefix.$_GET['t'];\n	if (file_exists($large_image_location)) {\n		unlink($large_image_location);\n	}\n	if (file_exists($thumb_image_location)) {\n		unlink($thumb_image_location);\n	}\n	header(\"location:\".$_SERVER[\"PHP_SELF\"]);\n	exit(); \n}\n?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n	<meta name=\"generator\" content=\"WebMotionUK\" />\n	<title>WebMotionUK - PHP &amp; Jquery image upload &amp; crop</title>\n	<script type=\"text/javascript\" src=\"js/jquery-pack.js\"></script>\n	<script type=\"text/javascript\" src=\"js/jquery.imgareaselect.min.js\"></script>\n</head>\n<body>\n<!-- \n* Copyright (c) 2008 http://www.webmotionuk.com / http://www.webmotionuk.co.uk\n* Date: 2008-11-21\n* \"PHP & Jquery image upload & crop\"\n* Ver 1.2\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n*\n* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND \n* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED \n* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. \n* IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, \n* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, \n* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS \n* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, \n* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF \n* THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n*\n-->\n<ul>\n	<li><a href=\"http://www.webmotionuk.co.uk/php-jquery-image-upload-and-crop/\">Back to project page</a></li>\n	<li><a href=\"http://www.webmotionuk.co.uk/jquery_upload_crop.zip\">Download Files</a></li>\n</ul>\n<?php\n//Only display the javacript if an image has been uploaded\nif(strlen($large_photo_exists)>0){\n	$current_large_image_width = getWidth($large_image_location);\n	$current_large_image_height = getHeight($large_image_location);?>\n<script type=\"text/javascript\">\nfunction preview(img, selection) { \n	var scaleX = <?php echo $thumb_width;?> / selection.width; \n	var scaleY = <?php echo $thumb_height;?> / selection.height; \n	\n	$('#thumbnail + div > img').css({ \n		width: Math.round(scaleX * <?php echo $current_large_image_width;?>) + 'px', \n		height: Math.round(scaleY * <?php echo $current_large_image_height;?>) + 'px',\n		marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', \n		marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' \n	});\n	$('#x1').val(selection.x1);\n	$('#y1').val(selection.y1);\n	$('#x2').val(selection.x2);\n	$('#y2').val(selection.y2);\n	$('#w').val(selection.width);\n	$('#h').val(selection.height);\n} \n\n$(document).ready(function () { \n	$('#save_thumb').click(function() {\n		var x1 = $('#x1').val();\n		var y1 = $('#y1').val();\n		var x2 = $('#x2').val();\n		var y2 = $('#y2').val();\n		var w = $('#w').val();\n		var h = $('#h').val();\n		if(x1==\"\" || y1==\"\" || x2==\"\" || y2==\"\" || w==\"\" || h==\"\"){\n			alert(\"You must make a selection first\");\n			return false;\n		}else{\n			return true;\n		}\n	});\n}); \n\n$(window).load(function () { \n	$('#thumbnail').imgAreaSelect({ aspectRatio: '1:<?php echo $thumb_height/$thumb_width;?>', onSelectChange: preview }); \n});\n\n</script>\n<?php }?>\n<h1>Photo Upload and Crop</h1>\n<?php\n//Display error message if there are any\nif(strlen($error)>0){\n	echo \"<ul><li><strong>Error!</strong></li><li>\".$error.\"</li></ul>\";\n}\nif(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){\n	echo $large_photo_exists.\"&nbsp;\".$thumb_photo_exists;\n	echo \"<p><a href=\\\"\".$_SERVER[\"PHP_SELF\"].\"?a=delete&t=\".$_SESSION['random_key'].$_SESSION['user_file_ext'].\"\\\">Delete images</a></p>\";\n	echo \"<p><a href=\\\"\".$_SERVER[\"PHP_SELF\"].\"\\\">Upload another</a></p>\";\n	//Clear the time stamp session and user file extension\n	$_SESSION['random_key']= \"\";\n	$_SESSION['user_file_ext']= \"\";\n}else{\n		if(strlen($large_photo_exists)>0){?>\n		<h2>Create Thumbnail</h2>\n		<div align=\"center\">\n			<img src=\"<?php echo $upload_path.$large_image_name.$_SESSION['user_file_ext'];?>\" style=\"float: left; margin-right: 10px;\" id=\"thumbnail\" alt=\"Create Thumbnail\" />\n			<div style=\"border:1px #e5e5e5 solid; float:left; position:relative; overflow:hidden; width:<?php echo $thumb_width;?>px; height:<?php echo $thumb_height;?>px;\">\n				<img src=\"<?php echo $upload_path.$large_image_name.$_SESSION['user_file_ext'];?>\" style=\"position: relative;\" alt=\"Thumbnail Preview\" />\n			</div>\n			<br style=\"clear:both;\"/>\n			<form name=\"thumbnail\" action=\"<?php echo $_SERVER[\"PHP_SELF\"];?>\" method=\"post\">\n				<input type=\"hidden\" name=\"x1\" value=\"\" id=\"x1\" />\n				<input type=\"hidden\" name=\"y1\" value=\"\" id=\"y1\" />\n				<input type=\"hidden\" name=\"x2\" value=\"\" id=\"x2\" />\n				<input type=\"hidden\" name=\"y2\" value=\"\" id=\"y2\" />\n				<input type=\"hidden\" name=\"w\" value=\"\" id=\"w\" />\n				<input type=\"hidden\" name=\"h\" value=\"\" id=\"h\" />\n				<input type=\"submit\" name=\"upload_thumbnail\" value=\"Save Thumbnail\" id=\"save_thumb\" />\n			</form>\n		</div>\n	<hr />\n	<?php 	} ?>\n	<h2>Upload Photo</h2>\n	<form name=\"photo\" enctype=\"multipart/form-data\" action=\"<?php echo $_SERVER[\"PHP_SELF\"];?>\" method=\"post\">\n	Photo <input type=\"file\" name=\"image\" size=\"30\" /> <input type=\"submit\" name=\"upload\" value=\"Upload\" />\n	</form>\n<?php } ?>\n<!-- Copyright (c) 2008 http://www.webmotionuk.com -->\n</body>\n</html>\n",
+			"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/page/avatar/editavatar.php",
+			"file_size": 15889,
+			"file_write_time": 1373471127000000,
+			"settings":
+			{
+				"buffer_size": 15815,
+				"line_ending": "Unix",
+				"name": "<form action=\"my_upload.php\" enctype=\"multipart/fo"
+			}
+		},
+		{
+			"contents": "<?php\nif (isset($_POST[\"upload\"])) {  \n    //Get the file information  \n    $userfile_name = $_FILES[\"image\"][\"name\"];  \n    $userfile_tmp = $_FILES[\"image\"][\"tmp_name\"];  \n    $userfile_size = $_FILES[\"image\"][\"size\"];  \n    $filename = basename($_FILES[\"image\"][\"name\"]);  \n    $file_ext = substr($filename, strrpos($filename, \".\") + 1);  \n  \n    //Only process if the file is a JPG and below the allowed limit  \n    if((!emptyempty($_FILES[\"image\"])) && ($_FILES[\"image\"][\"error\"] == 0)) {  \n        if (($file_ext!=\"jpg\") && ($userfile_size > $max_file)) {  \n            $error= \"ONLY jpeg images under 1MB are accepted for upload\";  \n        }  \n    }else{  \n        $error= \"Select a jpeg image for upload\";  \n    }  \n    //Everything is ok, so we can upload the image.  \n    if (strlen($error)==0){  \n  \n        if (isset($_FILES[\"image\"][\"name\"])){  \n  \n            move_uploaded_file($userfile_tmp, $large_image_location);  \n            chmod ($large_image_location, 0777);  \n  \n            $width = getWidth($large_image_location);  \n            $height = getHeight($large_image_location);  \n            //Scale the image if it is greater than the width set above  \n            if ($width > $max_width){  \n                $scale = $max_width/$width;  \n                $uploaded = resizeImage($large_image_location,$width,$height,$scale);  \n            }else{  \n                $scale = 1;  \n                $uploaded = resizeImage($large_image_location,$width,$height,$scale);  \n            }  \n            //Delete the thumbnail file so the user can create a new one  \n            if (file_exists($thumb_image_location)) {  \n                unlink($thumb_image_location);  \n            }  \n        }  \n        //Refresh the page to show the new uploaded image  \n        header(\"location:\".$_SERVER[\"PHP_SELF\"]);  \n        exit();  \n    }  \n}  \n\n?>",
+			"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/avatar_upload.php",
+			"file_size": 1848,
+			"file_write_time": 1373428339000000,
+			"settings":
+			{
+				"buffer_size": 1858,
+				"line_ending": "Unix",
+				"name": "if (isset($_POST[\"upload\"])) {"
+			}
+		},
+		{
+			"contents": "<?php \nsession_start();\n\ninclude($_SESSION['home'].'config.php');\ninclude($_SESSION['home'].'lib/babelfish.php'); \ninclude($_SESSION['home'].'lib/functions.php'); \ninclude($_SESSION['home'].'lib/database.php'); \n\n$rpage = page_controller();\n$babel = new BabelFish($rpage);\n\n\n// Ajax calls this NAME CHECK code to execute\nif(isset($_POST[\"usernamecheck\"])){\n	$username = preg_replace('#[^a-z0-9]#i', '', $_POST['usernamecheck']);\n	$sql = \"SELECT id FROM users WHERE username='$username' LIMIT 1\";\n    $query = get_query($sql); \n    $uname_check = mysqli_num_rows($query);\n    if (strlen($username) < 3 || strlen($username) > 16) {\n	    echo '<strong style=\"color:#F00;\">'.$babel->say('registration_size_error').'</strong>';\n	    exit();\n    }\n	if (is_numeric($username[0])) {\n	    echo '<strong style=\"color:#F00;\">'.$babel->say('registration_username_error').'</strong>';\n	    exit();\n    }\n    if ($uname_check < 1) {\n	    echo '<strong style=\"color:#009900;\">' . $username . ' '.$babel->say('user_ok').' </strong>';\n	    exit();\n    } else {\n	    echo '<strong style=\"color:#F00;\">' . $username .' '.  $babel->say('user_taken') . '</strong>';\n	    exit();\n    }\n}\n// Ajax calls this REGISTRATION code to execute\nif(isset($_POST[\"u\"])){\n	// CONNECT TO THE DATABASE\n	// GATHER THE POSTED DATA INTO LOCAL VARIABLES\n	$u = preg_replace('#[^a-z0-9]#i', '', $_POST['u']);\n	$e = db_escape($_POST['e']);\n	$p = $_POST['p'];\n	// GET USER IP ADDRESS\n    $ip = preg_replace('#[^0-9.]#', '', getenv('REMOTE_ADDR'));\n	// DUPLICATE DATA CHECKS FOR USERNAME AND EMAIL\n	$sql = \"SELECT id FROM users WHERE username='$u' LIMIT 1\";\n    $query = get_query($sql); \n	$u_check = mysqli_num_rows($query);\n	// -------------------------------------------\n	$sql = \"SELECT id FROM users WHERE email='$e' LIMIT 1\";\n    $query = get_query($sql); \n	$e_check = mysqli_num_rows($query);\n	// FORM DATA ERROR HANDLING\n	if($u == \"\" || $e == \"\" || $p == \"\" ){\n		echo $babel->say('error_fill_all');\n        exit();\n	} else if ($u_check > 0){ \n        echo $babel->say('error_user_taken');\n        exit();\n	} else if ($e_check > 0){ \n        echo $babel->say('error_email_taken');\n        exit();\n	} else if (strlen($u) < 3 || strlen($u) > 16) {\n        echo $babel->say('registration_size_error');\n        exit(); \n    } else if (is_numeric($u[0])) {\n        echo $babel->say('registration_username_error');\n        exit();\n    } else {\n	// END FORM DATA ERROR HANDLING\n	    // Begin Insertion of data into the database\n		// Hash the password and apply your own mysterious unique salt\n		$p_hash = md5($p);\n		// Add user info into the database table for the main site table\n		$sql = \"INSERT INTO users (username, email, password, country, country_code,region,city,latitude,longitude,ip, signup, lastlogin, notescheck)       \n		        VALUES('$u','$e','$p_hash','\".$_SESSION['country'].\"','\".$_SESSION['country_code'].\"','\".$_SESSION['region'].\"','\".$_SESSION['city'].\"','\".$_SESSION['latitude'].\"','\".$_SESSION['longitude'].\"','$ip',now(),now(),now())\";\n		elog($sql);\n		$query = get_query($sql); \n		$uid = get_insert_id();\n		// Establish their row in the useroptions table\n		$sql = \"INSERT INTO useroptions (id, username, background) VALUES ('$uid','$u','original')\";\n		\n		$query = get_query($sql);\n		// Create directory(folder) to hold each user's files(pics, MP3s, etc.)\n		if (!file_exists($CONFIG->data.\"user/$u\")) {\n			mkdir($CONFIG->data.\"user/$u\", 0755);\n		}\n		// Email the user their activation link\n		$to = \"$e\";							 \n		$from = \"focalizer@worldrainbowfamily.org\";\n		$subject = 'World Rainbow Family Account Activation';\n		$message = '<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>'.$CONFIG->site_name.' Message</title></head>\n		<body style=\"margin:0px; font-family:Tahoma, Geneva, sans-serif;\">\n		<div style=\"padding:10px; background:#333; font-size:24px; color:#CCC;\">\n		<a href=\"'.$CONFIG->site.'\">\n		<img src=\"'.$CONFIG->site.'/images/logo.png\" width=\"36\" height=\"30\" alt=\"'.$CONFIG->site_name.'\" style=\"border:none; float:left;\"></a>\n		'.$CONFIG->site_name.' Account Activation</div><div style=\"padding:24px; font-size:17px;\">Hello '.$u.',<br /><br />\n		Click the link below to activate your account when ready:<br /><br />\n		<a href=\"'. $CONFIG->site .'/activation?id='.$uid.'&u='.$u.'&e='.$e.'&p='.$p_hash.'\">\n		Click here to activate your account now</a><br /><br />\n		Login after successful activation using your:<br />\n		* E-mail Address: <b>'.$e.'</b></div></body></html>';\n		$headers = \"From: $from\\n\";\n        $headers .= \"MIME-Version: 1.0\\n\";\n        $headers .= \"Content-type: text/html; charset=iso-8859-1\\n\";\n		mail($to, $subject, $message, $headers);\n		echo \"signup_success\";\n		exit();\n	}\n	exit();\n}\n\n\nfunction randStrGen($len){\n	$result = \"\";\n    $chars = \"abcdefghijklmnopqrstuvwxyz0123456789$$$$$$$1111111\";\n    $charArray = str_split($chars);\n    for($i = 0; $i < $len; $i++){\n	    $randItem = array_rand($charArray);\n	    $result .= \"\".$charArray[$randItem];\n    }\n    return $result;\n}\n?>",
+			"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/ajax_signup.php",
+			"file_size": 4994,
+			"file_write_time": 1373390285000000,
+			"settings":
+			{
+				"buffer_size": 4995,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "default.php",
+			"settings":
+			{
+				"buffer_size": 3133,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 1121 files for \"registration.en\"\n\n0 matches across 0 files\n\n\nSearching 1121 files for \"registration\"\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/ajax_signup.php:\n   18      $uname_check = mysqli_num_rows($query);\n   19      if (strlen($username) < 3 || strlen($username) > 16) {\n   20: 	    echo '<strong style=\"color:#F00;\">'.$babel->say('registration_size_error').'</strong>';\n   21  	    exit();\n   22      }\n   23  	if (is_numeric($username[0])) {\n   24: 	    echo '<strong style=\"color:#F00;\">'.$babel->say('registration_username_error').'</strong>';\n   25  	    exit();\n   26      }\n   ..\n   33      }\n   34  }\n   35: // Ajax calls this REGISTRATION code to execute\n   36  if(isset($_POST[\"u\"])){\n   37  	// CONNECT TO THE DATABASE\n   ..\n   61          exit();\n   62  	} else if (strlen($u) < 3 || strlen($u) > 16) {\n   63:         echo $babel->say('registration_size_error');\n   64          exit(); \n   65      } else if (is_numeric($u[0])) {\n   66:         echo $babel->say('registration_username_error');\n   67          exit();\n   68      } else {\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/login.php:\n    4  function login() {\n    5  	global $babel;\n    6: 	$babel = new BabelFish('registration');\n    7  	ilog(\"Login in... email: \".$_POST[\"lemail\"]);\n    8  	// AJAX CALLS THIS LOGIN CODE TO EXECUTE\n    .\n   52  		\n   53  	}\n   54: 	system_msg($babel->say(\"registration_fill_all_data\"));\n   55  	return false;\n   56  }\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/language/en/userlogin.en:\n    1  {\n    2: 	\"registration_welcome\" : \"Hi there welcome home!\",\n    3: 	\"registration_fullname\" : \"Display Name\",\n    4: 	\"registration_username\" : \"Username\",\n    5: 	\"registration_email\" : \"Email address\",\n    6: 	\"registration_password\" : \"Password\",\n    7: 	\"registration_button\" : \"Create Account\",\n    8: 	\"registration_password_again\" : \"Password (again for verification)\",\n    9: 	\"registration_fill_all_data\" : \"Fill out all of the form data\",\n   10: 	\"registration_passwordnomatch\" : \"Your password fields do not match\",\n   11: 	\"registration_wait\" : \"Please wait a little...\",\n   12: 	\"registration_success1\" : \"check your email inbox and junk mail box at \",\n   13: 	\"registration_success2\" : \"in a moment to complete the sign up process by activating your account. You will not be able to do anything on the site until you successfully activate your account. \",\n   14  	\"error_fill_all\" : \"You must fill all empty fields.\",\n   15  	\"error_user_taken\" : \"The username you entered is alreay taken\",\n   16: 	\"registration_size_error\" : \"Your username must be 3 - 16 characters please\",\n   17: 	\"registration_username_error\" : \"Usernames must begin with a letter\",\n   18  	\"error_email_taken\" : \"That email address is already in use in the system\",\n   19  	\"user_ok\" : \"Username passed.\",\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/head.php:\n    3  \n    4  <link rel=\"icon\" href=\"favicon.ico\" type=\"image/x-icon\">\n    5: <link rel=\"stylesheet\" href=\"<?=$CONFIG->site?>/page/userlogin/css/registration.css\">\n    6  \n    7  <script src=\"<?=$CONFIG->site?>/js/main.js\"></script>\n    8  <script src=\"<?=$CONFIG->site?>/js/ajax.js\"></script>\n    9: <script src=\"<?=$CONFIG->site?>/page/userlogin/js/registration_js.php\"></script>\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/js/registration_js.php:\n   79  	if(u == \"\" || e == \"\" || p1 == \"\" || p2 == \"\" ){\n   80  		_(\"system_messages\").style.display = \"block\";\n   81: 	     _(\"system_messages\").innerHTML = \"<?=$babel->say('registration_fill_all_data')?>\";\n   82  	} else if(p1 != p2){\n   83  		_(\"system_messages\").style.display = \"block\";\n   84: 	    _(\"system_messages\").innerHTML = \"<?=$babel->say('registration_passwordnomatch')?>\";\n   85  	} \n   86  	else {\n   87  		_(\"signupbtn\").style.display = \"none\";\n   88: 		status.innerHTML = 	\"<?=$babel->say('registration_wait')?>\";\n   89  		var ajax = ajaxObj(\"POST\", \"action/user/ajax_signup.php\");\n   90          ajax.onreadystatechange = function() {\n   ..\n   96  				} else {\n   97  					window.scrollTo(0,0);\n   98: 					_(\"pagebody\").innerHTML = \"\"+u+\",	<?=$babel->say('registration_success1')?><u>\"+e+\"</u> <?=$babel->say('registration_success2')?>\";\n   99  				}\n  100  	        }\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/registration_login.php:\n   21  \n   22  <div id=\"pageMiddle\" style=\"width:400px;float:left\">\n   23:   <h3><?=$babel->say('registration_welcome')?></h3>\n   24:   <?=$babel->say('registration_welcome')?>\n   25      \n   26    <form name=\"signupform\" id=\"signupform\" onsubmit=\"return false;\">\n   27:     <div>  <?=$babel->say('registration_fullname')?>    :</div>\n   28      <input id=\"name\" type=\"text\" onfocus=\"emptyElement('status')\" maxlength=\"88\"> \n   29:     <div>  <?=$babel->say('registration_username')?>    : </div>\n   30      <input id=\"username\" type=\"text\" onblur=\"checkusername()\" onkeyup=\"restrict('username')\" maxlength=\"16\">\n   31      <span id=\"unamestatus\"></span>\n   32:     <div>  <?=$babel->say('registration_email')?>    :</div>\n   33      <input id=\"email\" type=\"text\" onfocus=\"emptyElement('status')\" onkeyup=\"restrict('email')\" maxlength=\"88\">\n   34:     <div>  <?=$babel->say('registration_password')?>    </div>\n   35      <input id=\"pass1\" type=\"password\" onfocus=\"emptyElement('status')\" maxlength=\"16\">\n   36:     <div>  <?=$babel->say('registration_password_again')?>    </div>\n   37      <input id=\"pass2\" type=\"password\" onfocus=\"emptyElement('status')\" maxlength=\"16\">\n   38   \n   39      <br /><br />\n   40:     <button id=\"signupbtn\" onclick=\"signup()\">  <?=$babel->say('registration_button')?>    </button>\n   41      <span id=\"status\"></span>\n   42    </form>\n\n/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/userlogin.json:\n    6  	\"title\" : \"World Rainbow Family - Social Network\",\n    7  	\"head\" : \"userlogin/head.php\",\n    8: 	\"content\" : \"userlogin/registration_login.php\"\n    9  }\n   10  \n\n/home/daniel/Sites/worldrainbowfamily/world/dev/phpadmin/libraries/tcpdf/tcpdf.php:\n 19025  \n 19026  	/**\n 19027: 	 * Paints color transition registration bars\n 19028  	 * @param $x (float) abscissa of the top left corner of the rectangle.\n 19029  	 * @param $y (float) ordinate of the top left corner of the rectangle.\n .....\n 19037  	 * @public\n 19038  	 */\n 19039: 	public function colorRegistrationBar($x, $y, $w, $h, $transition=true, $vertical=false, $colors='A,R,G,B,C,M,Y,K') {\n 19040  		$bars = explode(',', $colors);\n 19041  		$numbars = count($bars); // number of bars to print\n .....\n 19195  \n 19196  	/**\n 19197: 	 * Paints a registration mark\n 19198: 	 * @param $x (float) abscissa of the registration mark center.\n 19199: 	 * @param $y (float) ordinate of the registration mark center.\n 19200  	 * @param $r (float) radius of the crop mark.\n 19201  	 * @param $double (boolean) if true print two concentric crop marks.\n .....\n 19206  	 * @public\n 19207  	 */\n 19208: 	public function registrationMark($x, $y, $r, $double=false, $cola=array(0,0,0), $colb=array(255,255,255)) {\n 19209  		$line_style = array('width' => (0.5 / $this->k), 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => $cola);\n 19210  		$this->SetFillColorArray($cola);\n\n43 matches across 8 files\n",
+			"settings":
+			{
+				"buffer_size": 7284,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/lib/geolocation.php",
+			"settings":
+			{
+				"buffer_size": 1392,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 138.0,
+		"selected_items":
+		[
+			[
+				"Snippet: b",
+				"Snippet: babel"
+			],
+			[
+				"tidy",
+				"Tidy PHP"
+			],
+			[
+				"Snippet: ",
+				"Snippet: babel"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"format",
+				"Format: Php"
+			],
+			[
+				"php",
+				"Format: Php"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 146.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/config.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/functions.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/login.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/language/en/feed.en",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/config_remote.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/js/registration_js.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/ajax_pass_request.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/registration_login.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/phpinfo.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/avatar/avatarcrop.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/css/registration.css",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/template/default/default.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/ajax_signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/logout.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/index.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/activation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/userlogin.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/geolocation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/js_includes.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/ajax/signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/feed/feed.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/activation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/language/en/userlogin.en",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/user/js/registration_js.php",
+		"/home/daniel/.config/sublime-text-2/Packages/User/SFTP.errors.log",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/ajax/signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/activation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/userlogin/head.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/user/head.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/registration_content.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/js/registration_js.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/template/default/default.css",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/login.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/language/en/registration.en",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/ajax/login.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/feed/feed.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/logout.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/start.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/denied.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/database.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/hypeFramework/views/default/js/vendors/jstree/_demo/_inc/class._database_i.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/importer/feed.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/importer/process.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/css/registration.css",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/activation/activation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/language/en/activation.en",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/babelfish.php",
+		"/home/daniel/.config/sublime-text-2/Packages/User/babel2.sublime-snippet",
+		"/home/daniel/.config/sublime-text-2/Packages/User/babel.sublime-snippet",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/registration_head.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/lib/geolocate.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/views/default/page/elements/header.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/js/signup.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/activation/activation.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/language/activation.en",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/registration.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/pagehandler.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/master/master.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/top_menu.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/sidebar_menu.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/avatar_module.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/content.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/sidebar_right.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/sidebar_left.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/head.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/header.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/default/footer.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/content.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/js/signup.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/page/registration/head.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/ajax/signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/register.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/activation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/actions/message.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/actions/signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/template/bottom.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/template/top.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/views/default/topbanner.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/actions/activation.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/css/registration.css",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/lib/randStrGen.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/user/signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/views/default/header.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/signup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/js/fadeEffects.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/js/autoscroll.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/js/expandretract.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/js/ajax.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/js/main.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/install/install.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/dev/views/default/body.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/views/default/page/elements/facebook_module.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/index.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/install/install.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/config.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/views/default/footer.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/lib/functions.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/lib/database.php",
+		"/home/daniel/Sites/worldrainbowfamily/rainbow/install/install.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/views/default/header.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/rainbow/views/default/body.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/classes/Notable.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/classes/ElggEntity.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/classes/ODDMetaData.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/classes/DatabaseException.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/classes/CronException.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/classes/CallException.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/settings.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/lib/admin.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/importer/ajaxfeed.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/js/jquery-min.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/views/default/page/elements/meta.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/phpinfo.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/js/waypoints-infinite.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/js/waypoints.js",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/classes/PostProcessor.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/graphics/Source.html",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/views/default/page/elements/css/main.css",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/lib/configuration.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/importer/data.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/lib/facebook.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/importer/upload.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/importer/admintoken.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/sftp-config.json",
+		"/home/daniel/Sites/worldrainbowfamily/world/languages/en.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired/views/default/page/elements/importer_popup.php",
+		"/home/daniel/Sites/worldrainbowfamily/world/engine/start.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/home/daniel/Sites/worldrainbowfamily/world/dev",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod/dev",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod",
+			"/home/daniel/Sites/worldrainbowfamily/world/dev/",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod",
+			"/home/daniel/Sites/worldrainbowfamily/world/engine",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod",
+			"/home/daniel/Sites/worldrainbowfamily/world/languages",
+			"/home/daniel/Sites/worldrainbowfamily/world/views",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod",
+			"/home/daniel/Sites/worldrainbowfamily/world/",
+			"/home/daniel/Sites/worldrainbowfamily/world/engine",
+			"/home/daniel/Sites/worldrainbowfamily/world/views",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod",
+			"/home/daniel/Sites/worldrainbowfamily/world/engine",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod",
+			"/home/daniel/Sites/worldrainbowfamily/world/views/",
+			"/home/daniel/Sites/worldrainbowfamily/world/",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod/login",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod/rainbow",
+			"/home/daniel/Sites/worldrainbowfamily/world/mod/loginrequired",
+			"/home/daniel/Sites/worldrainbowfamily/world"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"registration",
+			"registration.en",
+			"Logout success",
+			"page_map",
+			"registration",
+			"user",
+			"registration",
+			"page/registration",
+			"registration",
+			"page/registration",
+			"mysqli",
+			"mysqli_real_escape_string($db_conx, ",
+			"mysqli_query($db_conx, ",
+			"error_log",
+			"isset( $this->page->",
+			"$page->",
+			"default",
+			"header(",
+			"mysqli_query($db_conx, ",
+			"mysqli_real_escape_string($db_conx, ",
+			"mysqli_query($db_conx, ",
+			"FB.ui",
+			"function elgg_get_data_path",
+			"facebook_service_import",
+			"http://",
+			"my_url",
+			"$my_url",
+			"$my_url =\"https",
+			"execute_query",
+			"location",
+			"To request a new password",
+			"http://www.worldrainbowfamily.org",
+			"http://connect.facebook.net/en_US/all.js",
+			"activity?view=rss",
+			"http://www.worldrainbowfamily.org",
+			"/home/rainbow",
+			"$CONFIG->dataroot",
+			"function elgg_get_site_url",
+			"elgg_get_site_url",
+			".rainbow-river-message",
+			"cron",
+			"ask",
+			"$.ajax",
+			"jquery",
+			"process.php",
+			"country_code",
+			"insert into elgg_river",
+			"elgg_river",
+			"cron",
+			"time",
+			"True",
+			"MEDIA_URL = ''\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"page_controller",
+			"userlogin",
+			"user",
+			"page/user",
+			"db_escape(",
+			"get_query(",
+			"elog",
+			"property_exists( $this->page , '",
+			"$this->page->",
+			"master",
+			"echo(",
+			"get_query(",
+			"db_escape(",
+			"get_query(",
+			"https://connect.facebook.net/en_US/all.js",
+			"https://www.worldrainbowfamily.org"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/page/avatar/editavatar.php",
+					"settings":
+					{
+						"buffer_size": 15815,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1413,
+								1413
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<form action=\"my_upload.php\" enctype=\"multipart/fo",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/avatar_upload.php",
+					"settings":
+					{
+						"buffer_size": 1858,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1858,
+								1858
+							]
+						],
+						"settings":
+						{
+							"auto_name": "if (isset($_POST[\"upload\"])) {",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/action/user/ajax_signup.php",
+					"settings":
+					{
+						"buffer_size": 4995,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								212,
+								212
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "default.php",
+					"settings":
+					{
+						"buffer_size": 3133,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"settings":
+					{
+						"buffer_size": 7284,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										367,
+										379
+									],
+									[
+										540,
+										552
+									],
+									[
+										670,
+										682
+									],
+									[
+										883,
+										895
+									],
+									[
+										1010,
+										1022
+									],
+									[
+										1237,
+										1249
+									],
+									[
+										1414,
+										1426
+									],
+									[
+										1569,
+										1581
+									],
+									[
+										1628,
+										1640
+									],
+									[
+										1678,
+										1690
+									],
+									[
+										1724,
+										1736
+									],
+									[
+										1772,
+										1784
+									],
+									[
+										1818,
+										1830
+									],
+									[
+										1868,
+										1880
+									],
+									[
+										1945,
+										1957
+									],
+									[
+										2017,
+										2029
+									],
+									[
+										2095,
+										2107
+									],
+									[
+										2152,
+										2164
+									],
+									[
+										2234,
+										2246
+									],
+									[
+										2573,
+										2585
+									],
+									[
+										2659,
+										2671
+									],
+									[
+										3072,
+										3084
+									],
+									[
+										3278,
+										3290
+									],
+									[
+										3572,
+										3584
+									],
+									[
+										3751,
+										3763
+									],
+									[
+										3906,
+										3918
+									],
+									[
+										4174,
+										4186
+									],
+									[
+										4228,
+										4240
+									],
+									[
+										4472,
+										4484
+									],
+									[
+										4527,
+										4539
+									],
+									[
+										4673,
+										4685
+									],
+									[
+										4834,
+										4846
+									],
+									[
+										5064,
+										5076
+									],
+									[
+										5250,
+										5262
+									],
+									[
+										5414,
+										5426
+									],
+									[
+										5654,
+										5666
+									],
+									[
+										5954,
+										5966
+									],
+									[
+										6138,
+										6150
+									],
+									[
+										6386,
+										6398
+									],
+									[
+										6635,
+										6647
+									],
+									[
+										6699,
+										6711
+									],
+									[
+										6771,
+										6783
+									],
+									[
+										6995,
+										7007
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								71,
+								71
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"incomplete_sync": null,
+							"output_tag": 2,
+							"remote_loading": false,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"synced": false,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 450.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/daniel/Sites/worldrainbowfamily/world/dev/lib/geolocation.php",
+					"settings":
+					{
+						"buffer_size": 1392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 432.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"regcontent",
+				"dev/page/registration/registration_content.php"
+			],
+			[
+				"lanregis",
+				"dev/language/en/registration.en"
+			],
+			[
+				"regco",
+				"dev/page/registration/registration_content.php"
+			],
+			[
+				"registraphp",
+				"dev/page/registration/registration_content.php"
+			],
+			[
+				"registra",
+				"dev/language/en/registration.en"
+			],
+			[
+				"loginstart.",
+				"mod/loginrequired/start.php"
+			],
+			[
+				"databasei",
+				"mod/hypeFramework/views/default/js/vendors/jstree/_demo/_inc/class._database_i.php"
+			],
+			[
+				"proce",
+				"mod/loginrequired/importer/process.php"
+			],
+			[
+				"importer/feed.php",
+				"mod/loginrequired/importer/feed.php"
+			],
+			[
+				"geolocate",
+				"mod/loginrequired/lib/geolocate.php"
+			],
+			[
+				"loginreq/header",
+				"mod/loginrequired/views/default/page/elements/header.php"
+			],
+			[
+				"/importer/pro",
+				"mod/loginrequired/importer/process.php"
+			],
+			[
+				"/importer/",
+				"mod/loginrequired/importer/feed.php"
+			],
+			[
+				"facebookmodul",
+				"mod/loginrequired/views/default/page/elements/facebook_module.php"
+			],
+			[
+				"process",
+				"mod/loginrequired/importer/process.php"
+			],
+			[
+				"requistart",
+				"mod/loginrequired/start.php"
+			],
+			[
+				"phpinfo",
+				"phpinfo.php"
+			],
+			[
+				"requiheader",
+				"mod/loginrequired/views/default/page/elements/header.php"
+			],
+			[
+				"postpro",
+				"mod/loginrequired/classes/PostProcessor.php"
+			],
+			[
+				"/lib/configuration.p",
+				"engine/lib/configuration.php"
+			],
+			[
+				"loginremeta",
+				"mod/loginrequired/views/default/page/elements/meta.php"
+			],
+			[
+				"faceboomodu",
+				"mod/loginrequired/views/default/page/elements/facebook_module.php"
+			],
+			[
+				"/lib/facebo",
+				"mod/loginrequired/lib/facebook.php"
+			],
+			[
+				"impodata",
+				"mod/loginrequired/importer/data.php"
+			],
+			[
+				"loginfaceb",
+				"mod/loginrequired/lib/facebook.php"
+			],
+			[
+				"importer_popu",
+				"mod/loginrequired/views/default/page/elements/importer_popup.php"
+			],
+			[
+				"imporupload",
+				"mod/loginrequired/importer/upload.php"
+			],
+			[
+				"start.php",
+				"engine/start.php"
+			],
+			[
+				"admintoke",
+				"mod/loginrequired/importer/admintoken.php"
+			],
+			[
+				"logiheader",
+				"mod/loginrequired/views/default/page/elements/header.php"
+			],
+			[
+				"facebookmo",
+				"mod/loginrequired/views/default/page/elements/facebook_module.php"
+			],
+			[
+				"",
+				"mod/loginrequired/views/default/page/elements/meta.php"
+			],
+			[
+				"loginreheader",
+				"mod/loginrequired/views/default/page/elements/header.php"
+			],
+			[
+				"loginrequicon/",
+				"mod/loginrequired/views/default/icon/user/facebook/icongenerator.php"
+			],
+			[
+				"riveractivcss",
+				"mod/river_activity_3C/views/default/river_activity_3C/css.php"
+			],
+			[
+				"requiredstart",
+				"mod/loginrequired/start.php"
+			],
+			[
+				"meta.php",
+				"mod/loginrequired/views/default/page/elements/meta.php"
+			],
+			[
+				"loginreqproces",
+				"mod/loginrequired/importer/process.php"
+			],
+			[
+				"facemodu",
+				"mod/loginrequired/views/default/page/elements/facebook_module.php"
+			],
+			[
+				"/impupload",
+				"mod/loginrequired/importer/upload.php"
+			],
+			[
+				"/impdata",
+				"mod/loginrequired/importer/data.php"
+			],
+			[
+				"importer/",
+				"mod/loginrequired/importer/noticia.php"
+			],
+			[
+				"loginstart",
+				"mod/loginrequired/start.php"
+			],
+			[
+				"facebookmodule",
+				"mod/loginrequired/views/default/page/elements/facebook_module.php"
+			],
+			[
+				"s",
+				"sftp-config.json"
+			],
+			[
+				"libriver.",
+				"engine/lib/river.php"
+			],
+			[
+				"modulefacebook",
+				"mod/loginrequired/views/default/page/elements/facebook_module.php"
+			],
+			[
+				"sftp",
+				"sftp-config.json"
+			],
+			[
+				"modloginheader",
+				"mod/loginrequired/views/default/page/elements/header.php"
+			],
+			[
+				"modloginreq",
+				"mod/loginrequired/views/default/page/layouts/loginrequired_index.php"
+			],
+			[
+				"loginrequir",
+				"mod/loginrequired/views/default/page/layouts/loginrequired_index.php"
+			],
+			[
+				"header",
+				"views/default/admin/header.php"
+			],
+			[
+				"notify",
+				"mod/rainbow/notify/notifyflag.php"
+			],
+			[
+				"loginrequi",
+				"mod/loginrequired/views/default/page/layouts/loginrequired_index.php"
+			],
+			[
+				"loginreq",
+				"mod/loginrequired/views/default/page/layouts/loginrequired_index.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/daniel/Sites/worldrainbowfamily/world/dev/lib/social.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 172.0,
+	"status_bar_visible": true
+}

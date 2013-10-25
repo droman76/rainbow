@@ -1,0 +1,10 @@
+	  {
+         "page" : "cron",
+	     "template" : "default",
+	     "layout" : "nosidebar",
+	     "inherit" : "master",
+		 "title" : "World Rainbow Family - Cron",
+		 "header" : "cron/header.php",
+	     "content" : "cron/cron.php"
+	  }
+	

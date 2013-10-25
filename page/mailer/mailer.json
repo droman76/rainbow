@@ -1,0 +1,10 @@
+
+  	{
+         "page" : "mailer",
+	     "template" : "default",
+	     "layout" : "nosidebar",
+	     "inherit" : "master",
+		 "title" : "Mailer",
+	     "content" : "mailer/mailer.php"
+	}
+	

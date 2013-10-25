@@ -1,0 +1,14 @@
+
+	  {
+         "page" : "profile",
+	     "template" : "default",
+	     "layout" : "profile",
+	     "inherit" : "master",
+		 "title" : "World Rainbow Family - Profile",
+		 "header" : "profile/header.php",
+	     "content" : "profile/profile.php",
+	     "head" : "profile/head.php",
+	     "footer" : "profile/footer.php",
+	     "sidebar_right" : "profile/sidebar.php"
+	  }
+	

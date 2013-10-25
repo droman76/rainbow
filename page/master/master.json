@@ -1,0 +1,17 @@
+
+{
+    "page" : "*",
+    "title" : "World Rainbow Family Social Network",
+    "template" : "default:nosidebar",    
+	"head" : "master/head.php",
+	"header" : "master/header.php",
+	"top_menu" : "master/top_menu.php",
+	"sidebar_menu" : "master/sidebar_menu.php",
+	"avatar_module" : "master/avatar_module.php",
+	"content" : "master/content.php",
+	"sidebar_left" : "master/sidebar_left.php",
+	"sidebar_right" : "master/sidebar_right.php",
+	"footer" : "master/footer.php"
+
+}
+

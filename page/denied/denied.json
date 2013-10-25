@@ -1,0 +1,10 @@
+
+{
+    "page" : "denied",
+    "template" : "default",
+	"layout" : "nosidebar",
+	"header" : "denied/header.php",
+    "inherit" : "master",
+    "content" : "denied/access_denied.php"
+}
+

@@ -1,0 +1,11 @@
+
+{
+    "page" : "userlogin",
+    "template" : "default",
+	"layout" : "nosidebar",
+    "inherit" : "master",
+    "title" : "World Rainbow Family - Social Network",
+	"head" : "userlogin/head.php",
+	"content" : "userlogin/registration_login.php"
+}
+
