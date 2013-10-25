@@ -11,26 +11,26 @@ if (!isset($CONFIG)) {
 }
 
 /**
- * The database parameters configuration
+ * The database parameters configuration, fill in blank spaces with correct values
  */
 
-$CONFIG->dbuser = 'root';
+$CONFIG->dbuser = '';
 $CONFIG->dbpass = '';
-$CONFIG->dbname = 'rainbow';
-$CONFIG->dbhost = 'localhost';
+$CONFIG->dbname = '';
+$CONFIG->dbhost = '';
 $CONFIG->dbprefix = '';
 
 /**
- * The site parameters configuration
+ * The site parameters configuration will in <..> with correct values
  */
 $CONFIG->site_name = 'World Rainbow Family';
-$CONFIG->site_mail = 'focalizer@worldrainbowfamily.org';
-$CONFIG->root = '/Users/daniel/Sites/rainbow/';
-$CONFIG->home = $CONFIG->root . 'dev/';
+$CONFIG->site_mail = '<email@blablabla>';
+$CONFIG->root = '<root>/';
+$CONFIG->home = $CONFIG->root . '/';
 $CONFIG->data = $CONFIG->root . 'data/';
 $CONFIG->userdata = $CONFIG->data . 'users/';
 
-$CONFIG->site = 'http://local.worldrainbowfamily.org';
+$CONFIG->site = 'http://www..org';
 $CONFIG->language = 'en';	
 $CONFIG->siteroot = '/';
 
