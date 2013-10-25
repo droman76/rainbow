@@ -48,6 +48,20 @@ Rainbow Social is built specially to create a home network for the following gro
 	-Meditators
 	-Nomads
 
+INSTALLATION:
+	Requirements: nginx, php5, mysql
+
+	Steps.
+	1. Download source files
+	2. Setup nginx, under installation/nginx is the server file.. adjust as necessary
+	3. Create database for installation on mysql
+	4. Import sql file under installation folder into database
+	5. Copy config.php into root directory and adjust as necessary for password and paths
+	6. Register user and edit database row under users add entry 'admin,root,translator' for taht user
+
+	Thats it!
+	 
+
 
 
 
