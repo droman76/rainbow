@@ -29,6 +29,9 @@ $img_src = get_avatar_image($username) . $nocache;
 	</div>
 
 </div>
+
+
+
 <div id='send-message' class='modal-bg' style='display:none'>
 
 	<div style='left:25%;top:100px;width:500px;height:300px' class="modal">

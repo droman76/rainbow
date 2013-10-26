@@ -74,7 +74,7 @@ function get_group_unread($groupid) {
 	}
 
 	$q = "select * from feed where group_id = '$groupid' and date > $time";
-	ilog("GROUP UNREAD: $q");
+	//ilog("GROUP UNREAD: $q");
 	$r = get_query($q);
 	$c = get_rows($r);
 

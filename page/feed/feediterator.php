@@ -7,6 +7,9 @@ function getCountFeed($view,$where,$master_view='') {
 	$region = $_SESSION['region'];
 	$country = $_SESSION['country'];
 	$continent = $_SESSION['continent_code'];
+
+	if (!is_user_logged_in()) return 0;
+
 	if ($master_view != '')
 		$scope = getScope($master_view);
 	else $scope = getScope($view);
@@ -54,6 +57,8 @@ function displayPost($post_id,$view) {
 function displayUserFeed($start,$size,$userid){
 
 	global $CONFIG;
+	if (!isset($userid) || $userid == '') return false;
+
 	//$query = "select * from feed where parent = '-1' and user_name='$username' order by date DESC limit $start,$size";
 	$query = "select * from feed, wall where parent = '-1' and feed.post_id = wall.post_id and wall.user_id = $userid  order by date DESC limit $start,$size";
 	$result = get_query($query);

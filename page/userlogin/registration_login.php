@@ -28,10 +28,10 @@ if ($facebook_loginbox)
    <h1><?=$babel->say('p_password_request_title')?></h1>
    <br>
    <?=$babel->say('p_password_request')?>   <br>
-    <form id='psrequest_form'>
+    
       <input type='text' id='passwordrequest' value=''><br><br>
       <button class='rainbow-button rainbow-button-submit' onclick='request_password()' name='request'><?=$babel->say('p_password_request_button')?></button>
-    </form>
+    
 </div>
 
 

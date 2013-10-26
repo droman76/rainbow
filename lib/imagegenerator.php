@@ -13,7 +13,7 @@
 	if (isset($_REQUEST['nocache'])) {
 		$nocache = true;
 	}
-	else $nocache = true;
+	else $nocache = false;
 
 	if (isset($_REQUEST['group'])){
 		$isgroup = true;
@@ -56,7 +56,7 @@
 	else {
 		header('Pragma: public'); 
 		header('Cache-Control: max-age=86400');
-		header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
+		header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 3600));
 		header("Content-type: $type");
 		readfile($path_to_file);
 	}	

@@ -18,6 +18,7 @@
 **/
 $newItem = '';
 $me = get_logged_in_user_id();
+global $isgroup;
 
 /*if (!isset($group) || $group == '') {
   $group = $_REQUEST['path'];
@@ -64,8 +65,13 @@ if (isset($action) && $action != '')  {
     
   }
 }
-else $action_html = '';
+else if (isset($group) && $group != '' && !isset($isgroup)) {
+  $action_html = "posted in group <a href='/group/$group'>$group</a>";
+}
 
+else {
+  $action_html = '';
+}
 
 ?>
 

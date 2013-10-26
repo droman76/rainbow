@@ -13,22 +13,22 @@
 	
 
 	// Load the user laguage if it is not yet set in session...
-	if (!isset($_SESSION['user_language']))
-		$lan_array = explode(",",$_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-    	if (isset($lan_array[0])) {
-    		$tlan = explode("_",$lan_array[0]);
-    		//if there is a locale then trim
-    		$lang = $tlan[0];
-    		$i = strpos($lang, '-');
-    		if ($i > 0) $lang = substr($lang, 0,$i);
+	if (!isset($_SESSION['user_language'])) {
+		if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) && strlen($_SERVER["HTTP_ACCEPT_LANGUAGE"]) > 2){
+    		$lang = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0,2);
     		$_SESSION['user_language'] = $lang;
-    	
-
     	}
     	else $_SESSION['user_language'] = 'en';
+    }
+    if (!isset($_SESSION['browser'])) {
+    	$ua=getBrowser();
+		$_SESSION['browser'] = $ua['name'];
+		$_SESSION['browser_v'] = $ua['version'];
+		$_SESSION['platform'] = $ua['platform'];
+    }
 
-    ilog("".$_SERVER['HTTP_USER_AGENT']." *** ".$_SESSION['user_language']);
-		
+    ilog("******************* Browser: ".$_SESSION['browser']." V:".$_SESSION['browser_v']." on ".$_SESSION['platform']." || Lang: ".$_SESSION['user_language'].' ***********************');
+	
 	header('Content-Type: text/html; charset=UTF-8'); 
 	
 	$_SESSION['home'] = $CONFIG->home;

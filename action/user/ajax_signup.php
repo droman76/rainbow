@@ -140,7 +140,8 @@ if(isset($_POST["n"])){
 		// Add user info into the database table for the main site table
 		$sql = "INSERT INTO users (username, name, gender, email, password, logincount,postcount,trustlevel,continent_code,country, country_code,region,city,latitude,longitude,ip, signup, lastlogin, notescheck,language,browser,browser_version,platform)       
 		        VALUES('$u','$n','$g','$e','$p_hash',0,0,0,'".$_SESSION['continent_code']."','".$_SESSION['country']."','".$_SESSION['country_code']."','".$_SESSION['region']."','".$_SESSION['city']."','".$_SESSION['latitude']."','".$_SESSION['longitude']."','$ip',$now,$now,$now,'$lang','$browser','$browser_version','$platform')";
-		elog($sql);
+		ilog("Registering new user $n ($u) @ $e from ".$_SESSION['city'].', '.$_SESSION['country']);
+		
 		$query = get_query($sql); 
 		$uid = get_insert_id();
 		/*

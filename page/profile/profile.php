@@ -21,6 +21,7 @@ if (strlen($path) > 4 && isUser($path)){
 	ilog($q);
 	$r = get_query($q);
 	$u = $r->fetch_object();
+	$uemail = $u->email;
 	$fullname = $u->name;
 	$userid = $u->id;
 	$view = true;
@@ -73,6 +74,26 @@ else {
 
 ?>
 
+<div id='changepassword' class='modal-bg' style='display:none'>
+
+	<div style='left:25%;top:100px;width:500px;height:300px' class="modal">
+		<div style='margin:20px'>
+		<span style='float:right' ><a onclick='_("changepassword").style.display="none"'><img  src='/template/default/_graphics/close.png'></a></span>
+			
+			<h2><?=$babel->say('p_password change')?></h2><hr>
+			<p><?=$babel->say('p_passwordchange_info')?>
+			<br>
+			<form action='<?=$CONFIG->siteroot?>action/user/passwordchange_ajx.php' method='post' enctype="multipart/form-data">
+			<input id='mypassword' selected size=80 type="text" name="password" value="">
+			</form>
+			<br>
+			<button onclick='passwordChangeNow()' class='rainbow-button rainbow-button-submit'><?=$babel->say('p_passwordchangebtn')?></button>
+
+		</div>
+	</div>
+
+</div>
+
 <div id='set-location' class='modal-bg' style='display:none'>
 
 	<div style='left:25%;top:100px;width:500px;height:310px' class="modal">
@@ -114,6 +135,11 @@ else {
 				<label><?=$babel->say('p_displayname')?></label><br>
 				<input type="text" style='width:90%' value="<?=$name?>" name="name" />	
 			</div>
+			<div>
+				<label><?=$babel->say('p_password')?></label><br>
+				<a onclick='changePassword()'><?=$babel->say('p_changepassword')?></a>	
+			</div>
+			
 			<div><label><?=$babel->say('p_onesentenceabout')?>:</label><br>
 				<input type="text" value="<?=$intro?>" name="intro" options="" style='width:90%'/>
 			</div>

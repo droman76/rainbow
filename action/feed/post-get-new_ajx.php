@@ -12,6 +12,9 @@ $babel = new BabelFish('feed');
 $scope = $_REQUEST['scope'];
 $view = $_REQUEST['view'];
 $user_id = $_SESSION['userid'];
+
+if (!isset($user_id) || $user_id == '') exit(1);
+
 $groupid = $_REQUEST['groupid'];
 $master_view = $_REQUEST['master_view'];
 $t_file = $CONFIG->userdata.$_SESSION['username'].'/timestamps';
@@ -153,7 +156,8 @@ else {
 //cronos_update($view);
 
 function getNewMailCount($time) {
-	$me = $_SESSION['userid'];
+	$me = get_logged_in_user_id();
+	if (!isset($me) || $me == '') return 0;
 	$sql = "select sender from messaging where (sender=$me or recipient=$me) and sent > $time";
 	$messages = get_query($sql);
 	$stack = array();
@@ -172,6 +176,7 @@ function getNewMailCount($time) {
 
 function getFriendRequestCount() {
 	$me = $_SESSION['userid'];
+	if (!isset($me) || $me == '')return 0;
 	$sql = "select count(user1) as requests from friends where user2 = $me and accepted = 0";
 	$r = get_query($sql);
 	return $r->fetch_object()->requests;
@@ -180,6 +185,8 @@ function getFriendRequestCount() {
 
 function getNotificationCount($time) {
 	$me = $_SESSION['userid'];
+	if (!isset($me) || $me == '')return 0;
+	
 	$sql = "select count(id) as nfx from notifications where recipient = $me and sent > $time";
 	$r = get_query($sql);
 	//ilog($sql);

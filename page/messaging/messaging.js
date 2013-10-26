@@ -4,6 +4,27 @@ var mailman = false; // mail man is the ajax process that checks for new message
 var loadtime; // the time the conversation loaded (for the ajax process to know)
 
 
+function changePassword() {
+
+	_("changepassword").style.display = 'inline';
+}
+function passwordChangeNow() {
+	var pass = _("mypassword").value;
+		var ajax = ajaxObj("POST", "/action/user/changepassword_ajx.php");
+			
+		ajax.onreadystatechange = function() {
+		    if(ajaxReturn(ajax) == true) {
+		        if(ajax.responseText == "error"){        	
+				} else {
+					system_message(ajax.responseText);
+					_("changepassword").style.display = 'none';
+				}
+		    }
+		}
+		ajax.send("password="+pass);
+
+}
+
 function notification_goto(link) {
 	_("notification-inbox").style.display='none';	
 	location.href = link;

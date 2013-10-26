@@ -48,18 +48,11 @@ function request_password(){
 	
     ajax.onreadystatechange = function() {
 		if(ajaxReturn(ajax) == true) {
-	    	if(ajax.responseText != "request_success"){
-	        	system_message(ajax.responseText);
+			window.scrollTo(0,0);
+			system_message(ajax.responseText);
+		}
 			
-			} else {
-				window.scrollTo(0,0);
-				_("requestpassword").style.display = 'none'; 
-	        	_("pagebody").style.display = 'block';
-	        	_("system_messages").style.display = 'block';
-				_("system_messages").innerHTML = "<?=$babel->say('p_request_success',false)?><u>"+e+"</u> <?=$babel->say('p_passwordrequest_success2',false)?>";
-			}
-			
-	    }   
+	    
     }
     ajax.send("e="+e);
     

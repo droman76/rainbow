@@ -2,6 +2,7 @@
 
 
 $action = $_REQUEST['action'];
+$isgroup = true;
 
 if ($action == 'new') {
    include('newgroup.php');
@@ -13,6 +14,7 @@ else if ($action == 'edit') {
 
 }
 else if ($action == 'list') {
+
    include('listgroups.php');
    return;
 

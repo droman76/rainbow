@@ -153,7 +153,7 @@ $sql = "INSERT INTO wall (post_id,user_id,scope) VALUES ($post_id,$user_id,1)";
 get_query($sql);
 
 // notify followers of current user of this post
-notify($user_login_id,'post',$post_id,'posted');
+notify($user_id,'post',$post_id,'posted');
 
 
 

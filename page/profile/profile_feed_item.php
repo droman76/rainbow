@@ -48,6 +48,18 @@ if (isset($action) && $action != '')  {
     
   }
 }
+else if (isset($group) && $group != '' && !isset($isgroup)) {
+  global $userid;
+
+  if (is_numeric($group)) {
+    $action_html = "posted on the wall";
+  
+  }else {
+
+
+    $action_html = "posted in group <a href='/group/$group'>$group</a>";
+  }
+}
 else $action_html = '';
 
 
